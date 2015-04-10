@@ -3,8 +3,18 @@ I have a project that is a audio e video player for beaglebone black.
 
 Instructions:
 
+bbb -> ubuntu 13.04
+install mplayer 
+install alsa-base
+
 Create 2 folders for mass storage mounting
 My program will look for /mnt/pd and /mnt/pd2/ folders
+
+I put all file into /home/ubuntu/bin/ folder and I called then
+in startup.bash file so if you change the folder, change the code
+
+
+Goal:
 
 I´m struggling to develop a algoritm that will search and
 play the files even from subdirectories
