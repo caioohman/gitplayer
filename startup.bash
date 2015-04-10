@@ -19,7 +19,8 @@ function app()
  #echo 0 > /sys/class/graphics/fb0/blank #leave framebuffer sleep mode
 
 
- clear  
+ clear
+#first menu  
  echo 
  echo  "--------PLAYER DE AUDIO E VIDEO--------" 
  echo 
@@ -29,22 +30,22 @@ function app()
  echo "2- executar arquivos de vídeo de acordo com a lista de execução"
  echo 
  echo 
- echo "3-Se desejar alterar o volume antes ou durante a reprodução" 
+ echo "3-Se desejar alterar o volume antes da reprodução" 
  echo 
 
  #if necessary -- echo transdata | sudo -S 
 
- 
+ #store the option
  read number
 
 
 case $number in 
  
  1)
- echo " Você escolheu a opção vídeo"
+ echo " Você escolheu a opção vídeo" #chose video option
  clear 
  
-
+#second menu -audio player 
 echo '' 
 echo '' 
 echo ' -- Agora selecione o modo de execução que voce deseja --  ' 
@@ -55,11 +56,13 @@ read way
 case $way in
 
 1)
+#list files and give you options
 echo ' Você escolheu a opção 1 '
 /home/ubuntu/bin/file.bash
 ;;
 
 2)
+# just play all audio files 
 echo ' Você escolheu a opção 2 '
 /home/ubuntu/bin/play.bash
 ;;
@@ -73,7 +76,7 @@ esac
 
 ;;
 
- 2)  #audio player command
+ 2)  #third menu - video player 
  
  echo " Você escolheu a opção audio" 
  clear 
@@ -87,10 +90,12 @@ echo ' 2- Somente executar todos os arquivos '
 read mode
 case $mode in
 1)
+#list files and give you options
 echo ' Você escolheu a opção 1 ' 
 /home/ubuntu/bin/video.bash
 ;;
 2)
+# just play all audio files
 echo '  Você escolheu a opção 2 '
 /home/ubuntu/bin/exec.bash
 ;;
@@ -99,6 +104,11 @@ echo ' Esta não é uma opção válida '
 ;;
 esac
 
+;;
+
+3)
+#volume control
+alsamixer -c 1
 ;;
 
 *)
@@ -117,7 +127,7 @@ esac
 }
 
 #mount pendrive
-/home/ubuntu/bin/mount.bash
+#/home/ubuntu/bin/mount.bash
 
 sleep 5
 

@@ -6,13 +6,14 @@ function videos()
 HDMI_TERM="/dev/tty1"
 DEBUG_TERM="/dev/tty0"
 PEN_DIR="/mnt/pd"
+PEN_SEC="/mnt/pd2/"
 
 c="0" 
 d="1"
 e="1"
  
 
-COMMAND="$(find /mnt/pd/ -maxdepth 1 -type f -iregex ".*\.\(mp4\|mkv\|avi\|mpg\)$" | wc -l)"
+COMMAND="$(find $PEN_DIR $PEN_SEC -maxdepth 1 -type f -iregex ".*\.\(mp4\|mkv\|avi\|mpg\)$" | wc -l)"
  
 clear
 
@@ -20,7 +21,8 @@ clear
 echo "numero de arquivos de vídeo listados - $COMMAND"
 
 #need to list subdirectories
-cd /mnt/pd/ && ls -1 *.{mp4,mkv,avi,mpg} > /tmp/videolist  2> /dev/null
+cd $PEN_DIR && ls -1 *.{mp4,mkv,avi,mpg} >> /tmp/videolist  2> /dev/null
+cd $PEN_SEC && ls -1 *.{mp3,acc,flac,ogg}  >> /tmp/list  2> /dev/null
 
 
 IFS=$'\n' read -d '' -r -a lines < /tmp/videolist
@@ -44,7 +46,7 @@ mediainfo  "${lines[c]}" | sed -n ' /Complete name/,/Duration/p'
 echo ""
 echo ""
 
-# this  will wait for  5 audio files
+
 if test $e -eq 2
 then
 #
@@ -84,10 +86,7 @@ c=$[$c+1]
 d=$[$d+1]
 e=$[$e+1]
 
-
 done
-
-
 
 }
 videos

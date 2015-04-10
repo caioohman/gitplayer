@@ -6,7 +6,9 @@ function device()
 
  HDMI_TERM="/dev/tty1"
  PEN_DIR="/mnt/pd"
+ PEN_SEC="/mnt/pd2"
  names=("sda1" "sdb1" "sdc1")
+ 
 
  cat /proc/partitions |grep sd > /dev/null
 
@@ -28,13 +30,25 @@ function device()
  do
   cat /proc/partitions |grep "${names[c]}" > /dev/null  # maybe is necessary to use ""
   if [ $? > 0 ]
-  then         
-  break
+  then
+ 
+
+ mount |grep $PEN_DIR > /dev/null
+  
+ if [ $? -eq 1 ] #check if it was already mounted
+ then
+ 
+ mount /dev/"${names[c]}" $PEN_DIR
+ else  # if yes
+ echo 'Detectou um segundo dispositivo de armazenamento' > $HDMI_TERM
+ 
+ mount /dev/"${names[c]}" $PEN_SEC
+     
+  fi
   fi   
  done
 
- #echo "/dev/${names[c]}"
- mount /dev/"${names[c]}" $PEN_DIR
+ 
 
 }
 
