@@ -6,7 +6,7 @@ function app()
 
  #local variables
  HDMI_TERM="/dev/tty1"  
- DEBUG_TERM="/dev/tty0"
+ DEBUG_TERM="/dev/ttyO0"
  
 
 
@@ -18,20 +18,21 @@ function app()
  echo -e '\033[9;X]' > $HDMI_TERM                   #enter sleep mode
  echo 0 > /sys/class/graphics/fb0/blank #leave framebuffer sleep mode
 
+ clear > $HDMI_TERM
 
- clear
 #first menu  
  echo '' > $HDMI_TERM  
- echo  "--------PLAYER DE AUDIO E VIDEO--------"  > $HDMI_TERM
+ echo  '--------PLAYER DE AUDIO E VIDEO--------'  > $HDMI_TERM
  echo '' > $HDMI_TERM
- echo "Digite o numero de acordo com a opção desejada" > $HDMI_TERM
+ echo 'Digite o numero de acordo com a opção desejada' > $HDMI_TERM
  echo '' > $HDMI_TERM
- echo "1- executar arquivos de áudio de acordo com a lista de execução" > $HDMI_TERM
- echo "2- executar arquivos de vídeo de acordo com a lista de execução" > $HDMI_TERM
+ echo '1- executar arquivos de áudio de acordo com a lista de execução' > $HDMI_TERM
+ echo '2- executar arquivos de vídeo de acordo com a lista de execução' > $HDMI_TERM
  echo '' > $HDMI_TERM
  echo '' > $HDMI_TERM
- echo "3-Se desejar alterar o volume antes da reprodução" > $HDMI_TERM
- echo '' > $HDMI_TERM
+ echo '3-Se desejar alterar o volume antes da reprodução' > $HDMI_TERM
+ echo '4-Se deseja sair' > $HDMI_TERM 
+echo '' > $HDMI_TERM
  
 
  #if necessary -- echo transdata | sudo -S 
@@ -50,7 +51,8 @@ case $number in
  
  sleep 1
  
- clear 
+ clear  > $HDMI_TERM
+
  
 #second menu -audio player 
 echo ''  > $HDMI_TERM 
@@ -108,7 +110,7 @@ echo ' Você escolheu a opção video' > $HDMI_TERM
  
 sleep 1
 
- clear 
+ clear > $HDMI_TERM 
  
 echo '' > $HDMI_TERM
 echo '' > $HDMI_TERM
@@ -153,7 +155,25 @@ esac
 
 3)
 #volume control
-alsamixer -c 1
+
+echo '' > $HDMI_TERM
+echo '' > $HDMI_TERM
+echo 'Aperte as teclas com as setas para cima ou para baixo para alterar o volume' > $HDMI_TERM
+
+sleep 1
+
+#the output of the command can´t be redirected to the output ´cuz I don´t have  control over it
+alsamixer -c 1 
+/home/ubuntu/bin/startup.bash
+
+;;
+
+4)
+echo 'Saindo do programa ...' > $HDMI_TERM
+
+sleep 1
+exit 0
+
 ;;
 
 *)
