@@ -13,7 +13,8 @@ e="1"
 if test -e /tmp/videolist2
 then
 
-clear
+clear > $HDMI_TERM
+
 
 #count the number of files
 COMMAND="$(wc -l < /tmp/videolist2)"
@@ -37,7 +38,7 @@ do
 
 # sed command is not working properly ... but it is working!!
 printf " %s\n" "$d -  ${lines[c]}"  > $HDMI_TERM
-mediainfo "${lines[c]}" | sed -n ' /Track name/,/Genre/p'  > $HDMI_TERM
+mediainfo "${lines[c]}" | sed -n ' /Complete name/,/Duration/p'   > $HDMI_TERM
 
 
 echo ''  > $HDMI_TERM
@@ -69,6 +70,7 @@ if test $first -gt -1
 then
 echo 'Executando primeira escolha'  > $HDMI_TERM
 sleep 1
+clear > $HDMI_TERM
 nice -15 mplayer -really-quiet -vo fbdev2 -ao alsa:device=hw=1.0 -autosync 1 -framedrop "${lines[first]}"
 fi
 
@@ -76,6 +78,7 @@ if test $second -gt -1
 then
 echo 'Executando segunda escolha'  > $HDMI_TERM
 sleep 1
+clear > $HDMI_TERM
 nice -15 mplayer -really-quiet -vo fbdev2 -ao alsa:device=hw=1.0 -autosync 1 -framedrop "${lines[second]}"
 fi
 
@@ -83,6 +86,7 @@ if test $third -gt -1
 then
 echo 'Executando terceira escolha'  > $HDMI_TERM
 sleep 1
+clear > $HDMI_TERM
 nice -15 mplayer -really-quiet -vo fbdev2 -ao alsa:device=hw=1.0 -autosync 1 -framedrop "${lines[third]}"
 fi
 
@@ -90,10 +94,11 @@ if test $fourth -gt -1
 then
 echo 'Executando quarta escolha'  > $HDMI_TERM
 sleep 1
+clear > $HDMI_TERM
 nice -15 mplayer -really-quiet -vo fbdev2 -ao alsa:device=hw=1.0 -autosync 1 -framedrop "${lines[fourth]}"
 fi
 
-clear
+clear > $HDMI_TERM
 e="0" # because it will increment before start the loop again
 
 fi
