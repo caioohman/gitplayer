@@ -69,7 +69,8 @@ then
  then
  echo ''
  echo ''
- echo "Pendrive 1 : Foram encontrados $COMMAND_THREE arquivos de vídeo de extensões mp4,mkv,avi,mpg" 
+ echo "Pendrive 1 : Foram encontrados $COMMAND_THREE arquivos de vídeo de extensões mp4,mkv,avi,mpg" > $HDMI_TERM
+ 
  
  sleep 3
 
