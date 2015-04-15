@@ -13,10 +13,19 @@ My program will look for /mnt/pd and /mnt/pd2/ folders
 I put all file into /home/ubuntu/bin/ folder and I called then
 in startup.bash file so if you change the folder, change the code
 
+set the frequency of the bbb to 1GHz from boot
+latter I´ll teach how to do it.
+
+Include the line before the line exit 0
+bash /home/ubuntu/bin/startup.bash
+At /etc/rc.local file to run the program from boot
+
+Plug the HDMI cable and check if is tty1
 
 Goal:
 
 I´m struggling to develop a algoritm that will search and
 play the files even from subdirectories
 
+Testing mplayer options for video´s file
  
