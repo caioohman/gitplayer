@@ -14,7 +14,7 @@ e="1"
 if test -e /tmp/list2
 then
 
-clear
+clear > $HDMI_TERM
 
 COMMAND="$(wc -l < /tmp/list2)"
 IFS=$'\n' read -d '' -r -a lines < /tmp/list2
