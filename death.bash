@@ -14,7 +14,7 @@ if test -e /tmp/videolist2
 then
 
 clear > $HDMI_TERM
-
+clear
 
 #count the number of files
 COMMAND="$(wc -l < /tmp/videolist2)"
@@ -36,14 +36,14 @@ mediainfo  "${lines[c]}" | sed -n ' /Complete name/,/Duration/p'  > $HDMI_TERM
 
 sleep 1
 clear > $HDMI_TERM
-nice -15 mplayer -really-quiet -vo fbdev2 -ao alsa:device=hw=1.0 -autosync 1 -framedrop "${lines[first]}"
+nice --15 mplayer -really-quiet -vo fbdev2 -ao alsa:device=hw=1.0 -autosync 1 -framedrop "${lines[first]}"
 
 c=$[$c+1]
 c=$[$c+1]
 done
-/home/ubuntu/bin/startup.bash
+/home/ubuntu/gitplayer/startup.bash
 else
-/home/ubuntu/bin/startup.bash
+/home/ubuntu/gitplayer/startup.bash
 
 fi
 }

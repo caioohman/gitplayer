@@ -15,6 +15,7 @@ if test -e /tmp/videolist1
 then
 
 clear > $HDMI_TERM
+clear
 
 #count the number of files
 COMMAND="$(wc -l < /tmp/videolist1)"
@@ -52,9 +53,16 @@ echo 'Digite os números desejados'  > $HDMI_TERM
 
 # -t is for timeout (seconds)
 # -a parameter means array
+
+clear
+
+echo 'escolha alguma opção ou aperte o enter (1)'
 read  -t 30 choice_one
+echo 'escolha alguma opção ou aperte o enter (2)'
 read  -t 30 choice_two
+echo 'escolha alguma opção ou aperte o enter (3)'
 read  -t 30 choice_three
+echo 'escolha alguma opção ou aperte o enter (4)'
 read  -t 30 choice_four
 
 first=$(($choice_one - 1))
@@ -66,34 +74,42 @@ sleep 2
 
 if test $first -gt -1
 then
+echo '' > $HDMI_TERM
+echo '' > $HDMI_TERM
 echo 'Executando primeira escolha'  > $HDMI_TERM
 sleep 1
 clear > $HDMI_TERM
-nice -15 mplayer -really-quiet -vo fbdev2 -ao alsa:device=hw=1.0 -autosync 1 -framedrop "${lines[first]}"
+nice --15 mplayer -really-quiet -vo fbdev2 -ao alsa:device=hw=1.0 -autosync 1 -framedrop  "${lines[first]}"
 fi
 
 if test $second -gt -1
 then
+echo '' > $HDMI_TERM
+echo '' > $HDMI_TERM
 echo 'Executando segunda escolha'  > $HDMI_TERM
 sleep 1
 clear > $HDMI_TERM
-nice -15 mplayer -really-quiet -vo fbdev2 -ao alsa:device=hw=1.0 -autosync 1 -framedrop "${lines[second]}"
+nice --15 mplayer -really-quiet -vo fbdev2 -ao alsa:device=hw=1.0 -autosync 1 -framedrop   "${lines[second]}"
 fi
 
 if test $third -gt -1
 then
+echo '' > $HDMI_TERM
+echo '' > $HDMI_TERM
 echo 'Executando terceira escolha'  > $HDMI_TERM
 sleep 1
 clear > $HDMI_TERM
-nice -15 mplayer -really-quiet -vo fbdev2 -ao alsa:device=hw=1.0 -autosync 1 -framedrop "${lines[third]}"
+nice --15 mplayer -really-quiet -vo fbdev2 -ao alsa:device=hw=1.0 -autosync 1 -framedrop "${lines[third]}"
 fi
 
 if test $fourth -gt -1
 then
+echo '' > $HDMI_TERM
+echo '' > $HDMI_TERM
 echo 'Executando quarta escolha'  > $HDMI_TERM
 sleep 1
 clear > $HDMI_TERM
-nice -15 mplayer -really-quiet -vo fbdev2 -ao alsa:device=hw=1.0 -autosync 1 -framedrop "${lines[fourth]}"
+nice --15 mplayer -really-quiet -vo fbdev2 -ao alsa:device=hw=1.0 -autosync 1 -framedrop "${lines[fourth]}"
 fi
 
 clear > $HDMI_TERM
@@ -105,11 +121,12 @@ c=$[$c+1]
 d=$[$d+1]
 e=$[$e+1]
 done
-/home/ubuntu/bin/life.bash
-#There is no audio file
+/home/ubuntu/gitplayer/life.bash
+
+#There is no video file
 else
 
-/home/ubuntu/bin/life.bash
+/home/ubuntu/gitplayer/life.bash
 
 fi
 }

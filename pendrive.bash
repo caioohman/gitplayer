@@ -50,9 +50,16 @@ echo 'Digite os números desejados' > $HDMI_TERM
 
 # -t is for timeout (seconds)
 # -a parameter means array
+
+clear
+
+echo 'escolha alguma opção ou aperte o enter (1)'
 read  -t 30 choice_one
+echo 'escolha alguma opção ou aperte o enter (2)'
 read  -t 30 choice_two
+echo 'escolha alguma opção ou aperte o enter (3)'
 read  -t 30 choice_three
+echo 'escolha alguma opção ou aperte o enter (4)'
 read  -t 30 choice_four
 
 first=$(($choice_one - 1))
@@ -101,11 +108,11 @@ c=$[$c+1]
 d=$[$d+1]
 e=$[$e+1]
 done
-/home/ubuntu/bin/startup.bash
+/home/ubuntu/gitplayer/startup.bash
 #There is no audio file
 else
 
-/home/ubuntu/bin/startup.bash
+/home/ubuntu/gitplayer/startup.bash
 
 fi
 }

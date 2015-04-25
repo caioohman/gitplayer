@@ -15,6 +15,7 @@ if test -e /tmp/list1
 then
 
 clear > $HDMI_TERM
+clear
 
 COMMAND="$(wc -l < /tmp/list1)"
 IFS=$'\n' read -d '' -r -a lines < /tmp/list1 
@@ -52,9 +53,16 @@ echo 'Digite os números desejados' > $HDMI_TERM
 
 # -t is for timeout (seconds)
 # -a parameter means array
+
+clear
+
+echo 'escolha alguma opção ou aperte o enter (1)'
 read  -t 30 choice_one
+echo 'escolha alguma opção ou aperte o enter (2)'
 read  -t 30 choice_two
+echo 'escolha alguma opção ou aperte o enter (3)'
 read  -t 30 choice_three
+echo 'escolha alguma opção ou aperte o enter (4)'
 read  -t 30 choice_four
 
 first=$(($choice_one - 1))
@@ -92,7 +100,7 @@ sleep 1
 mplayer -really-quiet -ao alsa:device=hw=1.0 "${lines[fourth]}"
 fi
 
-clear
+clear > $HDMI_TERM
 e="0" # because it will increment before start the loop again
 
 fi
@@ -102,10 +110,10 @@ c=$[$c+1]
 d=$[$d+1]
 e=$[$e+1]
 done
-/home/ubuntu/bin/pendrive.bash
+/home/ubuntu/gitplayer/pendrive.bash
 #There is no audio file
 else
-/home/ubuntu/bin/pendrive.bash
+/home/ubuntu/gitplayer/pendrive.bash
 
 fi
 }

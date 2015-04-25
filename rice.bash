@@ -13,6 +13,7 @@ if test -e /tmp/list1
 then
 
 clear > $HDMI_TERM
+clear
 
 
 c="0"
@@ -29,23 +30,24 @@ cd $PEN_DIR
 while [ $c -lt "$COMMAND" ]
 do
 
+
 echo '' > $HDMI_TERM
 echo '' > $HDMI_TERM
 
 printf " %s\n" "$d de $COMMAND -  ${lines[c]}"  > $HDMI_TERM
 mediainfo "${lines[c]}" | sed -n ' /Track name/,/Genre/p'  > $HDMI_TERM
- 
-
-
 mplayer -really-quiet -ao alsa:device=hw=1.0 "${lines[c]}"
+
+clear > $HDMI_TERM
+clear
 
 c=$[$c+1]
 d=$[$d+1]
 done
 
-/home/ubuntu/bin/play.bash
+/home/ubuntu/gitplayer/play.bash
 else
-/home/ubuntu/bin/play.bash
+/home/ubuntu/gitplayer/play.bash
 
 fi
 }

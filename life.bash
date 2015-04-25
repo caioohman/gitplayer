@@ -49,14 +49,21 @@ f=$(($c + 1 ))
 
 if [ $e -eq 4 ] || [ $e -lt 4 -a $COMMAND -eq $f ] ||  [ $COMMAND -lt 4 -a $e -eq $COMMAND ]
 then
-#
+
 echo 'Digite os números desejados'  > $HDMI_TERM
 
 # -t is for timeout (seconds)
 # -a parameter means array
+
+clear
+
+echo 'escolha alguma opção ou aperte o enter (1)'
 read  -t 30 choice_one
+echo 'escolha alguma opção ou aperte o enter (2)'
 read  -t 30 choice_two
+echo 'escolha alguma opção ou aperte o enter (3)'
 read  -t 30 choice_three
+echo 'escolha alguma opção ou aperte o enter (4)'
 read  -t 30 choice_four
 
 first=$(($choice_one - 1))
@@ -71,7 +78,7 @@ then
 echo 'Executando primeira escolha'  > $HDMI_TERM
 sleep 1
 clear > $HDMI_TERM
-nice -15 mplayer -really-quiet -vo fbdev2 -ao alsa:device=hw=1.0 -autosync 1 -framedrop "${lines[first]}"
+nice --15 mplayer -really-quiet -vo fbdev2 -ao alsa:device=hw=1.0 -autosync 1 -framedrop "${lines[first]}"
 fi
 
 if test $second -gt -1
@@ -79,7 +86,7 @@ then
 echo 'Executando segunda escolha'  > $HDMI_TERM
 sleep 1
 clear > $HDMI_TERM
-nice -15 mplayer -really-quiet -vo fbdev2 -ao alsa:device=hw=1.0 -autosync 1 -framedrop "${lines[second]}"
+nice --15 mplayer -really-quiet -vo fbdev2 -ao alsa:device=hw=1.0 -autosync 1 -framedrop "${lines[second]}"
 fi
 
 if test $third -gt -1
@@ -87,7 +94,7 @@ then
 echo 'Executando terceira escolha'  > $HDMI_TERM
 sleep 1
 clear > $HDMI_TERM
-nice -15 mplayer -really-quiet -vo fbdev2 -ao alsa:device=hw=1.0 -autosync 1 -framedrop "${lines[third]}"
+nice --15 mplayer -really-quiet -vo fbdev2 -ao alsa:device=hw=1.0 -autosync 1 -framedrop "${lines[third]}"
 fi
 
 if test $fourth -gt -1
@@ -95,7 +102,7 @@ then
 echo 'Executando quarta escolha'  > $HDMI_TERM
 sleep 1
 clear > $HDMI_TERM
-nice -15 mplayer -really-quiet -vo fbdev2 -ao alsa:device=hw=1.0 -autosync 1 -framedrop "${lines[fourth]}"
+nice --15 mplayer -really-quiet -vo fbdev2 -ao alsa:device=hw=1.0 -autosync 1 -framedrop "${lines[fourth]}"
 fi
 
 clear > $HDMI_TERM
@@ -107,11 +114,11 @@ c=$[$c+1]
 d=$[$d+1]
 e=$[$e+1]
 done
-/home/ubuntu/bin/startup.bash
+/home/ubuntu/gitplayer/startup.bash
 #There is no audio file
 else
 
-/home/ubuntu/bin/startup.bash
+/home/ubuntu/gitplayer/startup.bash
 
 fi
 }

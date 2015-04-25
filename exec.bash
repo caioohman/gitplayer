@@ -38,15 +38,15 @@ mediainfo  "${lines[c]}" | sed -n ' /Complete name/,/Duration/p'  > $HDMI_TERM
 
 sleep 1
 clear > $HDMI_TERM
-nice -15 mplayer -really-quiet -vo fbdev2 -ao alsa:device=hw=1.0 -autosync 1 -framedrop "${lines[first]}" 
+nice --15 mplayer -really-quiet -vo fbdev2 -ao alsa:device=hw=1.0 -autosync 1 -framedrop "${lines[first]}" 
 
 c=$[$c+1]
 d=$[$c+1]
 
 done
-/home/ubuntu/bin/death.bash
+/home/ubuntu/gitplayer/death.bash
 else
-/home/ubuntu/bin/death.bash
+/home/ubuntu/gitplayer/death.bash
 
 fi
 }

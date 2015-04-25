@@ -13,7 +13,7 @@ if test -e /tmp/list2
 then
 
 clear > $HDMI_TERM
-
+clear
 
 c="0"
 d="1"
@@ -34,14 +34,17 @@ echo '' > $HDMI_TERM
 
 printf " %s\n" "$d de $COMMAND -  ${lines[c]}"  > $HDMI_TERM
 mediainfo  "${lines[c]}" | sed -n ' /Track name/,/Genre/p'  > $HDMI_TERM
-
 mplayer -really-quiet -ao alsa:device=hw=1.0 "${lines[c]}" 
+
+clear
+clear > $HDMI_TERM
+
 
 c=$[$c+1]
 d=$[$c+1]
 done
-/home/ubuntu/bin/startup.bash
+/home/ubuntu/gitplayer/startup.bash
 fi
-/home/ubuntu/bin/startup.bash
+/home/ubuntu/gitplayer/startup.bash
 }
 play
