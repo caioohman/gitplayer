@@ -24,28 +24,30 @@ function device()
  echo 'Insira um dispositivo de armazenamento' > $HDMI_TERM
  sleep 3
  cat /proc/partitions |grep sd > /dev/null
- fi
-
+ 
  #loop to wait the mass storage device detection
- while [ $? = 1 ]  # if exist the return is "0" if nor is" 1"
+ # if exist the return is "0" if nor is" 1"
+
+while [ $? = 1 ]  
  do
  cat /proc/partitions |grep sd > /dev/null
  done
- 
+ fi
 
  #echo "${names[0]}"
-
+ #the program only accept 2.
+ 
  for (( c=0 ; c<2 ; c++ ))
  do
-  cat /proc/partitions |grep "${names[c]}" > /dev/null  # maybe is necessary to use ""
-  if [ $? > 0 ]
+  cat /proc/partitions |grep "${names[c]}" > /dev/null 
+  if [ $? -eq 0 ]
   then
- 
-
- mount |grep $PEN_DIR > /dev/null
+  mount |grep $PEN_DIR > /dev/null
   
-if [ $? -eq 1 ] #check if it was already mounted
-then
+  #check if it was already mounted
+
+ if [ $? -eq 1 ] 
+ then
  
  mount /dev/"${names[c]}" $PEN_DIR
  
@@ -77,8 +79,8 @@ then
  cd $PEN_DIR && ls -1 *.{mp4,mkv,avi,mpg} > /tmp/videolist1  2> /dev/null  
  fi
 
-
-else  # if yes
+ #if 1 mass storage was already mounted and there is another
+ else  
  echo '' > $HDMI_TERM
  echo '' > $HDMI_TERM
  echo 'Detectou um segundo dispositivo de armazenamento' > $HDMI_TERM
@@ -115,8 +117,8 @@ else  # if yes
  cd $PEN_SEC && ls -1 *.{mp4,mkv,avi,mpg} >> /tmp/videolist2  2> /dev/null
  fi
 
-fi
-fi   
+ fi
+ fi   
  done
 
  
