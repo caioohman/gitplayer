@@ -10,6 +10,7 @@ PEN_DIR="/mnt/pd"
 c="0"
 d="1"
 e="1"
+false="1"
 
 if test -e /tmp/videolist1
 then
@@ -26,7 +27,7 @@ IFS=$'\n' read -d '' -r -a lines < /tmp/videolist1
 echo '' > $HDMI_TERM
 echo '  -   Este menu é de escolha dos arquivos de audio desejados  - '  > $HDMI_TERM
 echo '  -   A cada numero que escolher,  aperte enter -  '  > $HDMI_TERM
-echo '  -   Senão quiser nenhum dos listados, somente aperte enter ou espere aparecer a proxima tela'  > $HDMI_TERM
+echo '  -   Senao quiser nenhum dos listados, somente aperte enter ou espere aparecer a proxima tela'  > $HDMI_TERM
 echo ''  > $HDMI_TERM
 echo ''  > $HDMI_TERM
 sleep 2
@@ -79,28 +80,86 @@ echo '' > $HDMI_TERM
 echo 'Executando primeira escolha'  > $HDMI_TERM
 sleep 1
 clear > $HDMI_TERM
-nice --15 mplayer -really-quiet -vo fbdev2 -ao alsa:device=hw=1.0 -autosync 1 -framedrop  "${lines[first]}"
+while [ $false -eq 1 ]
+do
+nice --15 mplayer -really-quiet -vo fbdev2 -ao alsa:device=hw=1.0 -autosync 1 -framedrop "${lines[first]}"
+
+#1 - no
+#2 - yes
+echo 'Repetir : (1)Nao (2)Sim' > $HDMI_TERM
+echo 'Repetir : (1)Não (2)Sim'
+
+read -t 10 answer
+result=$(($answer - 1))
+
+if [ $answer -ne 1 ]
+then
+false=0
 fi
+done
+false=1
+fi
+
 
 if test $second -gt -1
 then
 echo '' > $HDMI_TERM
 echo '' > $HDMI_TERM
 echo 'Executando segunda escolha'  > $HDMI_TERM
+
 sleep 1
 clear > $HDMI_TERM
-nice --15 mplayer -really-quiet -vo fbdev2 -ao alsa:device=hw=1.0 -autosync 1 -framedrop   "${lines[second]}"
+
+while [ $false -eq 1 ]
+do
+nice --15 mplayer -really-quiet -vo fbdev2 -ao alsa:device=hw=1.0 -autosync 1 -framedrop "${lines[second]}"
+
+#1 - no
+#2 - yes
+echo 'Repetir : (1)Nao (2)Sim' > $HDMI_TERM
+echo 'Repetir : (1)Não (2)Sim'
+
+read -t 10 answer
+result=$(($answer - 1))
+
+if [ $answer -ne 1 ]
+then
+false=0
 fi
+done
+false=1
+fi
+
 
 if test $third -gt -1
 then
 echo '' > $HDMI_TERM
 echo '' > $HDMI_TERM
 echo 'Executando terceira escolha'  > $HDMI_TERM
+
 sleep 1
 clear > $HDMI_TERM
+
+while [ $false -eq 1 ]
+do
 nice --15 mplayer -really-quiet -vo fbdev2 -ao alsa:device=hw=1.0 -autosync 1 -framedrop "${lines[third]}"
+
+#1 - no
+#2 - yes
+echo 'Repetir : (1)Nao (2)Sim' > $HDMI_TERM
+echo 'Repetir : (1)Não (2)Sim'
+
+read -t 10 answer
+result=$(($answer - 1))
+
+if [ $answer -ne 1 ]
+then
+false=0
 fi
+done
+false=1
+fi
+
 
 if test $fourth -gt -1
 then
@@ -109,8 +168,26 @@ echo '' > $HDMI_TERM
 echo 'Executando quarta escolha'  > $HDMI_TERM
 sleep 1
 clear > $HDMI_TERM
+while [ $false -eq 1 ]
+do
 nice --15 mplayer -really-quiet -vo fbdev2 -ao alsa:device=hw=1.0 -autosync 1 -framedrop "${lines[fourth]}"
+
+#1 - no
+#2 - yes
+echo 'Repetir : (1)Nao (2)Sim' > $HDMI_TERM
+echo 'Repetir : (1)Não (2)Sim'
+
+read -t 10 answer
+result=$(($answer - 1))
+
+if [ $answer -ne 1 ]
+then
+false=0
 fi
+done
+false=1
+fi
+
 
 clear > $HDMI_TERM
 e="0" # because it will increment before start the loop again
