@@ -13,7 +13,7 @@ function device()
 
  echo '' > $HDMI_TERM
  echo '' > $HDMI_TERM
- echo '  -- CONFIGURAÇÃO DOS DISPOSITIVOS DE ARMAZENAMENTO --' > $HDMI_TERM
+ echo '  -- CONFIGURAÇAO DOS DISPOSITIVOS DE ARMAZENAMENTO --' > $HDMI_TERM
  echo '' > $HDMI_TERM
  echo '' > $HDMI_TERM
 
@@ -57,7 +57,7 @@ while [ $? = 1 ]
  then
  echo '' > $HDMI_TERM
  echo '' > $HDMI_TERM
- echo "Pendrive 1 : Foram encontrados $COMMAND_ONE arquivos de áudio de extensões aac,flac,mp3,ogg,wav" > $HDMI_TERM
+ echo "Pendrive 1 : Foram encontrados $COMMAND_ONE arquivos de áudio de extensoes aac,flac,mp3,ogg,wav" > $HDMI_TERM
 
  
  sleep 3
@@ -71,7 +71,7 @@ while [ $? = 1 ]
  then
  echo ''
  echo ''
- echo "Pendrive 1 : Foram encontrados $COMMAND_THREE arquivos de vídeo de extensões mp4,mkv,avi,mpg" > $HDMI_TERM
+ echo "Pendrive 1 : Foram encontrados $COMMAND_THREE arquivos de vídeo de extensoes mp4,mkv,avi,mpg" > $HDMI_TERM
  
  
  sleep 3
@@ -95,7 +95,7 @@ while [ $? = 1 ]
  then
  echo '' > $HDMI_TERM
  echo '' > $HDMI_TERM
- echo "Pendrive 2 : Foram encontrados $COMMAND_TWO arquivos de áudio de extensões aac,flac,mp3,ogg,wav" > $HDMI_TERM
+ echo "Pendrive 2 : Foram encontrados $COMMAND_TWO arquivos de áudio de extensoes aac,flac,mp3,ogg,wav" > $HDMI_TERM
  
  
  sleep 3
@@ -109,7 +109,7 @@ while [ $? = 1 ]
  then
  echo '' > $HDMI_TERM
  echo '' > $HDMI_TERM
- echo "Pendrive 2 : Foram encontrados $COMMAND_FOUR arquivos de vídeo de extensões " > $HDMI_TERM
+ echo "Pendrive 2 : Foram encontrados $COMMAND_FOUR arquivos de vídeo de extensoes " > $HDMI_TERM
 
  
  sleep 3
