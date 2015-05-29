@@ -8,23 +8,48 @@ install mplayer
 install alsa-base
 install mediainfo
 
-Create 2 folders for mass storage mounting
+-Create 2 folders for mass storage mounting
 My program will look for /mnt/pd and /mnt/pd2/ folders
 
-clone the repo into /home/ubuntu/ folder
+-clone the repo into /home/ubuntu/ folder
 
-add the line :
+-rc.local file located int the '/etc/' folder (it´s really necessary to add) :
+
+sleep 15
+
+python /home/ubuntu/gitplayer/ip_print.py
+
+#time to connect
+sleep 120
+
+if [ `ps aux |grep ssh |wc -l` -eq 3 ]
+then
+
+clear > /dev/tty1
+#once on a ssh terminal you need to type the command below
+#and wait until leave the msg to execute.Otherwise the program will crash
+echo 'Voce precisa digitar o comando ' > /dev/tty1
+echo 'bash /home/ubuntu/gitplayer/startup.bash ' > /dev/tty1
+echo 'e executa-lo com a tecla enter depois que sair esse aviso' > /dev/tty1
+
+else
 bash /home/ubuntu/gitplayer/startup.bash
-to /etc/rc.local file before exit 0.(the program will start from boot)
+fi
 
-set the frequency of the bbb to 1GHz from boot
-latter I´ll teach how to do it.
+exit 0
 
 
+-set the frequency of the bbb to 1GHz from boot:
+
+[your favorite text editor] /etc/init.d/cpufrequtil
+
+change GOVERNOR to performance 
+change MAX_SPEED to 1000000
+change MIN_SPEED to 1000000
 
 Goal:
 
 I´m struggling to develop a algoritm that will search and
 play the files even from subdirectories
 
- 
+Improve algorithm 
