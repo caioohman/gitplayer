@@ -3,7 +3,6 @@
 function life()
 {
 HDMI_TERM="/dev/tty1"
-DEBUG_TERM="/dev/tty0"
 PEN_SEC="/mnt/pd2/"
 
 c="0"
@@ -31,6 +30,7 @@ echo ''  > $HDMI_TERM
 echo ''  > $HDMI_TERM
 
 sleep 2
+clear > $HDMI_TERM
 
 cd $PEN_SEC
 
@@ -76,11 +76,13 @@ sleep 2
 
 if test $first -gt -1
 then
+#repeat loop
+while [ $false -eq 1 ]
+do
 echo 'Executando primeira escolha'  > $HDMI_TERM
 sleep 1
 clear > $HDMI_TERM
-while [ $false -eq 1 ]
-do
+
 nice --15 mplayer -really-quiet -vo fbdev2 -ao alsa:device=hw=1.0 -autosync 1 -framedrop "${lines[first]}"
 
 #1 - no
@@ -91,7 +93,7 @@ echo 'Repetir : (1)Não (2)Sim'
 read -t 10 answer
 result=$(($answer - 1))
 
-if [ $answer -ne 1 ]
+if [ $result -lt 1 ]
 then
 false=0
 fi
@@ -102,12 +104,13 @@ fi
 
 if test $second -gt -1
 then
+#repeat loop
+while [ $false -eq 1 ]
+do
 echo 'Executando segunda escolha'  > $HDMI_TERM
 sleep 1
 clear > $HDMI_TERM
 
-while [ $false -eq 1 ]
-do
 nice --15 mplayer -really-quiet -vo fbdev2 -ao alsa:device=hw=1.0 -autosync 1 -framedrop "${lines[second]}"
 
 #1 - no
@@ -118,7 +121,7 @@ echo 'Repetir : (1)Não (2)Sim'
 read -t 10 answer
 result=$(($answer - 1))
 
-if [ $answer -ne 1 ]
+if [ $result -lt 1 ]
 then
 false=0
 fi
@@ -129,12 +132,13 @@ fi
 
 if test $third -gt -1
 then
+#repeat loop
+while [ $false -eq 1 ]
+do
 echo 'Executando terceira escolha'  > $HDMI_TERM
 sleep 1
 clear > $HDMI_TERM
 
-while [ $false -eq 1 ]
-do
 nice --15 mplayer -really-quiet -vo fbdev2 -ao alsa:device=hw=1.0 -autosync 1 -framedrop "${lines[third]}"
 
 #1 - no
@@ -145,7 +149,7 @@ echo 'Repetir : (1)Não (2)Sim'
 read -t 10 answer
 result=$(($answer - 1))
 
-if [ $answer -ne 1 ]
+if [ $result -lt 1 ]
 then
 false=0
 fi
@@ -155,12 +159,13 @@ fi
 
 if test $fourth -gt -1
 then
+#repeat loop
+while [ $false -eq 1 ]
+do
 echo 'Executando quarta escolha'  > $HDMI_TERM
 sleep 1
 clear > $HDMI_TERM
 
-while [ $false -eq 1 ]
-do
 nice --15 mplayer -really-quiet -vo fbdev2 -ao alsa:device=hw=1.0 -autosync 1 -framedrop "${lines[fouth]}"
 
 #1 - no
@@ -171,7 +176,7 @@ echo 'Repetir : (1)Não (2)Sim'
 read -t 10 answer
 result=$(($answer - 1))
 
-if [ $answer -ne 1 ]
+if [ $result -lt 1 ]
 then
 false=0
 fi
@@ -179,6 +184,15 @@ done
 false=1
 fi
 
+echo 'Deseja voltar ao menu inicial (1)Não  (2)Sim'
+read -t 10 test
+definitive=$(($test -1))
+
+if [ $definitive -eq 1 ]
+then
+/home/ubuntu/gitplayer/startup.bash
+exit 0
+fi
 
 clear > $HDMI_TERM
 e="0" # because it will increment before start the loop again
