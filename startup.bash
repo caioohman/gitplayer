@@ -7,11 +7,10 @@ function app()
 echo 0 > /sys/class/graphics/fbcon/cursor_blink #stop bliking cursor
 setterm -blank 0 > $HDMI_TERM                 #it sets screen blaked
 setterm -cursor off > $HDMI_TERM  
-setterm -background white -foreground green -store > $HDMI_TERM
+
  
-#check whether is necessary
-echo -e -n '\033[9]' > $DEBUG_TERM
-echo -e '\033[9;X]' > $HDMI_TERM                   #enter sleep mode
+echo -e -n '\033[9]' 
+echo -e '\033[9]' > $HDMI_TERM         #enter sleep mode time is never
 echo 0 > /sys/class/graphics/fb0/blank #leave framebuffer sleep mode
 
 clear > $HDMI_TERM
@@ -37,8 +36,7 @@ echo '' > $HDMI_TERM
 echo ' 1- áudio' 
 echo ' 2- vídeo'
 echo ' 3- volume'
-echo ' 4- sair'
-#if necessary -- echo transdata | sudo -S 
+echo ' 4- sair' 
 
 #store the option
 read number
@@ -251,23 +249,12 @@ esac
 #global variables
 HDMI_TERM="/dev/tty1"
 DEBUG_TERM="/dev/ttyO0"
-
-
-#python program
-python initial_config.py 
-
-#clear
-
-#sleep 10
-
-#ifconfig wlan0
-
-#read test
-
-#echo "$test"
-
-#sleep 1
-
+ 
+if [ ! -e /tmp/test.txt ]
+then
+#python program to change the size of characters
+python /home/ubuntu/gitplayer/initial_config.py 
+fi
 
 if [ ! -e /tmp/list1 -a ! -e /tmp/videolist1 -a ! -e /tmp/lis2 -a ! -e /tmp/videolist2 ] 
 then
@@ -283,7 +270,6 @@ echo '' > $HDMI_TERM
 echo '' > $HDMI_TERM 
 echo 'Nao foi detectado nenhum arquivo de áudio ' > $HDMI_TERM
 
-
 sleep 3
 
 if [ ! -e /tmp/videolist1 -a ! -e /tmp/videolist2 ]
@@ -291,7 +277,6 @@ then
 echo '' > $HDMI_TERM
 echo '' > $HDMI_TERM
 echo 'Também nao foi detectado nenhum arquivo de vídeo' > $HDMI_TERM
-
 
 sleep 3
 exit 0
