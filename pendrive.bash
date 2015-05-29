@@ -1,10 +1,9 @@
-#!/bin/bash -xv
+#!/bin/bash
 
 function pendrive()
 {
 
 HDMI_TERM="/dev/tty1"
-DEBUG_TERM="/dev/tty0"
 PEN_SEC="/mnt/pd2/"
 
 c="0"
@@ -28,6 +27,7 @@ echo '' > $HDMI_TERM
 echo '' > $HDMI_TERM
 
 sleep 2
+clear > $HDMI_TERM
 
 cd $PEN_SEC
 
@@ -72,11 +72,11 @@ sleep 2
 
 if test $first -gt -1
 then
-echo 'Executando primeira escolha' > $HDMI_TERM
-sleep 1
-
+#repeat loop
 while [ $false -eq 1 ]
 do
+echo 'Executando primeira escolha' > $HDMI_TERM
+sleep 1
 
 mplayer -really-quiet -ao alsa:device=hw=1.0 "${lines[first]}"
 
@@ -88,7 +88,7 @@ echo 'Repetir : (1)Não (2)Sim'
 read -t 10 answer
 result=$(($answer - 1))
 
-if [ $answer -ne 1 ]
+if [ $result -lt 1 ]
 then
 false=0
 fi
@@ -100,11 +100,11 @@ fi
 
 if test $second -gt -1
 then
-echo 'Executando segunda escolha' > $HDMI_TERM
-sleep 1
-
+#repeat loop
 while [ $false -eq 1 ]
 do
+echo 'Executando segunda escolha' > $HDMI_TERM
+sleep 1
 
 mplayer -really-quiet -ao alsa:device=hw=1.0 "${lines[second]}"
 
@@ -116,7 +116,7 @@ echo 'Repetir : (1)Não (2)Sim'
 read -t 10 answer
 result=$(($answer - 1))
 
-if [ $answer -ne 1 ]
+if [ $result -lt 1 ]
 then
 false=0
 fi
@@ -127,12 +127,11 @@ fi
 
 if test $third -gt -1
 then
-echo 'Executando terceira escolha' > $HDMI_TERM
-
-sleep 1
-
+#repeat loop
 while [ $false -eq 1 ]
 do
+echo 'Executando terceira escolha' > $HDMI_TERM
+sleep 1
 
 mplayer -really-quiet -ao alsa:device=hw=1.0 "${lines[third]}"
 
@@ -144,7 +143,7 @@ echo 'Repetir : (1)Não (2)Sim'
 read -t 10 answer
 result=$(($answer - 1))
 
-if [ $answer -ne 1 ]
+if [ $result -lt 1 ]
 then
 false=0
 fi
@@ -154,12 +153,11 @@ fi
 
 if test $fourth -gt -1
 then
-echo 'Executando quarta escolha' > $HDMI_TERM
-
-sleep 1
-
+#repeat loop
 while [ $false -eq 1 ]
 do
+echo 'Executando quarta escolha' > $HDMI_TERM
+sleep 1
 
 mplayer -really-quiet -ao alsa:device=hw=1.0 "${lines[fourth]}"
 
@@ -171,7 +169,7 @@ echo 'Repetir : (1)Não (2)Sim'
 read -t 10 answer
 result=$(($answer - 1))
 
-if [ $answer -ne 1 ]
+if [ $result -lt 1 ]
 then
 false=0
 fi
@@ -179,6 +177,15 @@ done
 false=1
 fi
 
+echo 'Deseja voltar ao menu inicial (1)Não  (2)Sim'
+read -t 10 test
+definitive=$(($test -1))
+
+if [ $definitive -eq 1 ]
+then
+/home/ubuntu/gitplayer/startup.bash
+exit 0
+fi
 
 clear
 e="0" # because it will increment before start the loop again
