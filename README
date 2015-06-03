@@ -14,11 +14,15 @@ My program will look for /mnt/pd and /mnt/pd2/ folders
 -clone the repo into /home/ubuntu/ folder
 
 -rc.local file located int the '/etc/' folder (it´s really necessary to add) :
+#!/bin/sh
 
+#time for ip address
 sleep 15
 
-python /home/ubuntu/gitplayer/ip_print.py
+output=`python /home/ubuntu/gitplayer/ip_print.py`
 
+if [ $output -eq 0 ]
+then
 #time to connect
 sleep 120
 
@@ -30,18 +34,25 @@ clear > /dev/tty1
 #and wait until leave the msg to execute.Otherwise the program will crash
 echo 'Voce precisa digitar o comando ' > /dev/tty1
 echo 'bash /home/ubuntu/gitplayer/startup.bash ' > /dev/tty1
-echo 'e executa-lo com a tecla enter depois que sair esse aviso' > /dev/tty1
+echo 'e executa-lo com a tecla enter depois que este aviso sair da tela' > /dev$
+
+sleep 60
+exit 0
+
+else
+bash /home/ubuntu/gitplayer/startup.bash
+exit 0
+fi
 
 else
 bash /home/ubuntu/gitplayer/startup.bash
 fi
-
 exit 0
 
 
 -set the frequency of the bbb to 1GHz from boot:
 
-[your favorite text editor] /etc/init.d/cpufrequtil
+[your favorite text editor] /etc/init.d/cpufrequtils
 
 change GOVERNOR to performance 
 change MAX_SPEED to 1000000
