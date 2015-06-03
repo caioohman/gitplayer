@@ -250,11 +250,11 @@ esac
 HDMI_TERM="/dev/tty1"
 DEBUG_TERM="/dev/ttyO0"
  
-if [ ! -e /tmp/test.txt ]
-then
+while [ ! -e /tmp/test.txt ]
+do
 #python program to change the size of characters
 python /home/ubuntu/gitplayer/initial_config.py 
-fi
+done
 
 if [ ! -e /tmp/list1 -a ! -e /tmp/videolist1 -a ! -e /tmp/lis2 -a ! -e /tmp/videolist2 ] 
 then

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash 
 
 function pendrive()
 {
@@ -6,35 +6,60 @@ function pendrive()
 HDMI_TERM="/dev/tty1"
 PEN_SEC="/mnt/pd2/"
 
-c="0"
+c="0" 
 d="1"
 e="1"
 false="1"
+two_files="0"
+four_files="0"
+three_files="0"
 
 if test -e /tmp/list2
 then
 
 clear > $HDMI_TERM
+clear
 
 COMMAND="$(wc -l < /tmp/list2)"
-IFS=$'\n' read -d '' -r -a lines < /tmp/list2
+IFS=$'\n' read -d '' -r -a lines < /tmp/list2 
 
 echo '' > $HDMI_TERM
 echo '  -   Este menu é de escolha dos arquivos de audio desejados  - ' > $HDMI_TERM
 echo '  -   A cada numero que escolher,  aperte enter -  ' > $HDMI_TERM
-echo '  -   Senao quiser nenhum dos listados, somente aperte enter ou espere aparecer a próxima tela ' > $HDMI_TERM
+echo '  -   Senao quiser nenhum dos listados, somente aperte enter' > $HDMI_TERM
+echo ' ou espere aparecer a próxima tela' > $HDMI_TERM
 echo '' > $HDMI_TERM
 echo '' > $HDMI_TERM
 
 sleep 2
 clear > $HDMI_TERM
 
+grep -q two /tmp/test.txt
+if [ $? -eq 0 ] 
+then
+two_files="2"
+limiar="$two_files"
+fi
+grep -q three /tmp/test.txt
+if [ $? -eq 0 ] 
+then
+three_files="3"
+limiar="$three_files"
+fi
+
+grep -q four /tmp/test.txt
+if [ $? -eq 0 ] 
+then
+four_files="4"
+limiar="$four_files"
+fi
+
 cd $PEN_SEC
 
 while [ $c -lt "$COMMAND" ]
-do
+do 
 
-# sed command is not working properly ... but it is working!!
+# sed command is not working properly ... but it is working!! 
 printf " %s\n" "$d -  ${lines[c]}" > $HDMI_TERM
 mediainfo "${lines[c]}" | sed -n ' /Track name/,/Genre/p' > $HDMI_TERM
 
@@ -43,32 +68,26 @@ echo '' > $HDMI_TERM
 
 f=$(($c + 1 ))
 
-if [ $e -eq 4 ] || [ $e -lt 4 -a $COMMAND -eq $f ] ||  [ $COMMAND -lt 4 -a $e -eq $COMMAND ]
+if [ $e -eq $limiar ] || [ $e -lt $limiar -a $COMMAND -eq $f ] ||  [ $COMMAND -lt $limiar -a $e -eq $COMMAND ]
 then
-
+#
 echo 'Digite os números desejados' > $HDMI_TERM
-
 
 # -t is for timeout (seconds)
 # -a parameter means array
 
 clear
 
+# when the size of the words are small enough to two file on the same screen
+
+if [ $two_files -eq 2 ] || [ $three_files -eq 3 ] || [ $four_files -eq 4 ]
+then
 echo 'escolha alguma opção ou aperte o enter (1)'
 read  -t 30 choice_one
+first=$(($choice_one - 1))
 echo 'escolha alguma opção ou aperte o enter (2)'
 read  -t 30 choice_two
-echo 'escolha alguma opção ou aperte o enter (3)'
-read  -t 30 choice_three
-echo 'escolha alguma opção ou aperte o enter (4)'
-read  -t 30 choice_four
-
-first=$(($choice_one - 1))
 second=$(($choice_two - 1))
-third=$(( $choice_three - 1))
-fourth=$(($choice_four - 1))
-
-sleep 2
 
 if test $first -gt -1
 then
@@ -83,7 +102,7 @@ mplayer -really-quiet -ao alsa:device=hw=1.0 "${lines[first]}"
 #1 - no
 #2 - yes
 echo 'Repetir : (1)Nao (2)Sim' > $HDMI_TERM
-echo 'Repetir : (1)Não (2)Sim'
+echo 'Repetir : (1)Não (2)Sim' 
 
 read -t 10 answer
 result=$(($answer - 1))
@@ -95,8 +114,6 @@ fi
 done
 false=1
 fi
-
-
 
 if test $second -gt -1
 then
@@ -110,8 +127,8 @@ mplayer -really-quiet -ao alsa:device=hw=1.0 "${lines[second]}"
 
 #1 - no
 #2 - yes
-echo 'Repetir : (1)Nao (2)Sim' > $HDMI_TERM
-echo 'Repetir : (1)Não (2)Sim'
+echo 'Repetir : (1)Nao (2)Sim'> $HDMI_TERM
+echo 'Repetir : (1)Não (2)Sim' 
 
 read -t 10 answer
 result=$(($answer - 1))
@@ -124,6 +141,13 @@ done
 false=1
 fi
 
+# when the size of the words are small enough to three file on the same screen
+
+if [ $three_files -eq 3 ] || [ $four_files -eq 4 ]
+then
+echo 'escolha alguma opção ou aperte o enter (3)'
+read  -t 30 choice_three
+third=$(( $choice_three - 1))
 
 if test $third -gt -1
 then
@@ -138,7 +162,7 @@ mplayer -really-quiet -ao alsa:device=hw=1.0 "${lines[third]}"
 #1 - no
 #2 - yes
 echo 'Repetir : (1)Nao (2)Sim' > $HDMI_TERM
-echo 'Repetir : (1)Não (2)Sim'
+echo 'Repetir : (1)Não (2)Sim' 
 
 read -t 10 answer
 result=$(($answer - 1))
@@ -150,6 +174,13 @@ fi
 done
 false=1
 fi
+
+# when the size of the words are small enough to four file on the same screen
+if [ $four_files -eq 4 ]
+then
+echo 'escolha alguma opção ou aperte o enter (4)'
+read  -t 30 choice_four
+fourth=$(($choice_four - 1))
 
 if test $fourth -gt -1
 then
@@ -164,7 +195,7 @@ mplayer -really-quiet -ao alsa:device=hw=1.0 "${lines[fourth]}"
 #1 - no
 #2 - yes
 echo 'Repetir : (1)Nao (2)Sim' > $HDMI_TERM
-echo 'Repetir : (1)Não (2)Sim'
+echo 'Repetir : (1)Não (2)Sim' 
 
 read -t 10 answer
 result=$(($answer - 1))
@@ -177,6 +208,10 @@ done
 false=1
 fi
 
+fi
+fi
+fi
+
 echo 'Deseja voltar ao menu inicial (1)Não  (2)Sim'
 read -t 10 test
 definitive=$(($test -1))
@@ -187,7 +222,7 @@ then
 exit 0
 fi
 
-clear
+clear > $HDMI_TERM
 e="0" # because it will increment before start the loop again
 
 fi
@@ -199,9 +234,10 @@ done
 /home/ubuntu/gitplayer/startup.bash
 #There is no audio file
 else
-
 /home/ubuntu/gitplayer/startup.bash
 
 fi
 }
 pendrive
+
+

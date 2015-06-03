@@ -57,7 +57,8 @@ while [ $? = 1 ]
  then
  echo '' > $HDMI_TERM
  echo '' > $HDMI_TERM
- echo "Pendrive 1 : Foram encontrados $COMMAND_ONE arquivos de áudio de extensoes aac,flac,mp3,ogg,wav" > $HDMI_TERM
+ echo "Pendrive 1 : Foram encontrados $COMMAND_ONE arquivos de áudio de extensoes" > $HDMI_TERM 
+ echo 'aac,flac,mp3,ogg,wav' > $HDMI_TERM
 
  
  sleep 3
@@ -95,7 +96,8 @@ while [ $? = 1 ]
  then
  echo '' > $HDMI_TERM
  echo '' > $HDMI_TERM
- echo "Pendrive 2 : Foram encontrados $COMMAND_TWO arquivos de áudio de extensoes aac,flac,mp3,ogg,wav" > $HDMI_TERM
+ echo "Pendrive 2 : Foram encontrados $COMMAND_TWO arquivos de áudio de extensoes" 
+ echo 'aac,flac,mp3,ogg,wav' > $HDMI_TERM
  
  
  sleep 3
@@ -110,7 +112,7 @@ while [ $? = 1 ]
  echo '' > $HDMI_TERM
  echo '' > $HDMI_TERM
  echo "Pendrive 2 : Foram encontrados $COMMAND_FOUR arquivos de vídeo de extensoes " > $HDMI_TERM
-
+ echo 'aac,flac,mp3,ogg,wav' > $HDMI_TERM
  
  sleep 3
 

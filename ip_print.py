@@ -12,31 +12,61 @@ import struct
 import subprocess
 import sys 
 
+console_term = "/dev/ttyO0"
 
-arquivo = "/dev/tty1"
-command = "/usr/share/consolefonts/Lat7-TerminusBold32x16.psf" 
-
-
+#get ip address
 def get_ip_address(ifname):
-	s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM) #second layer UDP
-	return socket.inet_ntoa(fcntl.ioctl(
-        	s.fileno(), #file des
-        	0x8915,  # SIOCGIFADDR device depend request
-        	struct.pack('256s', ifname[:15])
-        )[20:24]) #read from element 20 to 24
+	
+	try:	
+		s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM) #second layer UDP	
+		return socket.inet_ntoa(fcntl.ioctl(
+        		s.fileno(), #file des
+        		0x8915,  # SIOCGIFADDR device depend request
+        		struct.pack('256s', ifname[:15])
+       		)[20:24]) #read from element 20 to 24
+
+	except IOError,e:
+		if e.errno is 99:                
+			return 0
+		if e.errno is 19:
+			return -1
+
+def screen_term(result):
+	
+	arquivo = "/dev/tty1"
+	command = "/usr/share/consolefonts/Lat7-TerminusBold32x16.psf"
+	tty = open( arquivo , "w+" )
+        
+	if tty > 0:
+                sys.stdout = tty
+                subprocess.call(["setterm" , "-background" , "white" , "-foreground" , "green" , "-store"] , stdout=tty )
+                print(chr(27) + "[2J")
+                subprocess.call(["setfont" , command ])
+               	
+		if result > 0:
+			print "\nO ip para comunicaçao via SSH é : " ,ip
+			tty.close()
+			return 1
+		if not result: 
+			print "Nao foi detectada rede cadastrada, iniciando no modo console"
+		        tty.close()
+			return 0
+		if result < 0:
+			print "Dispositivo não conectado , iniciando no modo console"
+			tty.close()
+			return 0
+       
 
 ip = get_ip_address('wlan0')
+test = screen_term(ip)
 
-#print ip for connection over ssh
-print "\nO ip para comunicaçao via SSH é : " ,ip
+console = open (console_term , "w+")
 
-#send to a screen(for me it´s always /dev/tty1)
-tty = open( arquivo , "w+" )
-if tty > 0:
-	sys.stdout = tty
-	subprocess.call(["setterm" , "-background" , "white" , "-foreground" , "green" , "-store"], stdout=tty )
-        print(chr(27) + "[2J")
-        subprocess.call(["setfont" , command ])
-	print "\nO ip para comunicaçao via SSH é : " ,ip
+if console > 0:
 
-tty.close()
+	sys.stdout = console
+
+	if test:
+		 sys.exit(0) #successful termination
+	else:
+		sys.exit("error")

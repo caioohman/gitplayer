@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash 
 
 function files()
 {
@@ -10,6 +10,9 @@ c="0"
 d="1"
 e="1"
 false="1"
+two_files="0"
+four_files="0"
+three_files="0"
 
 if test -e /tmp/list1
 then
@@ -23,12 +26,33 @@ IFS=$'\n' read -d '' -r -a lines < /tmp/list1
 echo '' > $HDMI_TERM
 echo '  -   Este menu é de escolha dos arquivos de audio desejados  - ' > $HDMI_TERM
 echo '  -   A cada numero que escolher,  aperte enter -  ' > $HDMI_TERM
-echo '  -   Senao quiser nenhum dos listados, somente aperte enter ou espere aparecer a próxima tela' > $HDMI_TERM
+echo '  -   Senao quiser nenhum dos listados, somente aperte enter' > $HDMI_TERM
+echo ' ou espere aparecer a próxima tela' > $HDMI_TERM
 echo '' > $HDMI_TERM
 echo '' > $HDMI_TERM
 
 sleep 2
 clear > $HDMI_TERM
+
+grep -q two /tmp/test.txt
+if [ $? -eq 0 ] 
+then
+two_files="2"
+limiar="$two_files"
+fi
+grep -q three /tmp/test.txt
+if [ $? -eq 0 ] 
+then
+three_files="3"
+limiar="$three_files"
+fi
+
+grep -q four /tmp/test.txt
+if [ $? -eq 0 ] 
+then
+four_files="4"
+limiar="$four_files"
+fi
 
 cd $PEN_DIR
 
@@ -44,7 +68,7 @@ echo '' > $HDMI_TERM
 
 f=$(($c + 1 ))
 
-if [ $e -eq 4 ] || [ $e -lt 4 -a $COMMAND -eq $f ] ||  [ $COMMAND -lt 4 -a $e -eq $COMMAND ]
+if [ $e -eq $limiar ] || [ $e -lt $limiar -a $COMMAND -eq $f ] ||  [ $COMMAND -lt $limiar -a $e -eq $COMMAND ]
 then
 #
 echo 'Digite os números desejados' > $HDMI_TERM
@@ -54,21 +78,16 @@ echo 'Digite os números desejados' > $HDMI_TERM
 
 clear
 
+# when the size of the words are small enough to two file on the same screen
+
+if [ $two_files -eq 2 ] || [ $three_files -eq 3 ] || [ $four_files -eq 4 ]
+then
 echo 'escolha alguma opção ou aperte o enter (1)'
 read  -t 30 choice_one
+first=$(($choice_one - 1))
 echo 'escolha alguma opção ou aperte o enter (2)'
 read  -t 30 choice_two
-echo 'escolha alguma opção ou aperte o enter (3)'
-read  -t 30 choice_three
-echo 'escolha alguma opção ou aperte o enter (4)'
-read  -t 30 choice_four
-
-first=$(($choice_one - 1))
 second=$(($choice_two - 1))
-third=$(( $choice_three - 1))
-fourth=$(($choice_four - 1))
- 
-sleep 2
 
 if test $first -gt -1
 then
@@ -122,6 +141,14 @@ done
 false=1
 fi
 
+# when the size of the words are small enough to three file on the same screen
+
+if [ $three_files -eq 3 ] || [ $four_files -eq 4 ]
+then
+echo 'escolha alguma opção ou aperte o enter (3)'
+read  -t 30 choice_three
+third=$(( $choice_three - 1))
+
 if test $third -gt -1
 then
 #repeat loop
@@ -148,6 +175,13 @@ done
 false=1
 fi
 
+# when the size of the words are small enough to four file on the same screen
+if [ $four_files -eq 4 ]
+then
+echo 'escolha alguma opção ou aperte o enter (4)'
+read  -t 30 choice_four
+fourth=$(($choice_four - 1))
+
 if test $fourth -gt -1
 then
 #repeat loop
@@ -172,6 +206,10 @@ false=0
 fi
 done
 false=1
+fi
+
+fi
+fi
 fi
 
 echo 'Deseja voltar ao menu inicial (1)Não  (2)Sim'
