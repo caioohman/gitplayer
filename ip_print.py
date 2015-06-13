@@ -124,7 +124,7 @@ def iwlist_essid( ):
 		print "\nO nome digitado esta incorreto\n"
 		return 1
 
-
+#perform screen logs 
 def screen_term(result):
 	
 	arquivo = "/dev/tty1"
@@ -134,13 +134,19 @@ def screen_term(result):
 	if tty > 0:
                 sys.stdout = tty
                 subprocess.call(["setterm" , "-background" , "white" , "-foreground" , "green" , "-store"] , stdout=tty )
-                print(chr(27) + "[2J")
+                #screen clear
+		print(chr(27) + "[2J")
+		#set the cursor position to the beginning
+		print(chr(27) + "[H" )
+
                 subprocess.call(["setfont" , command ])
-               	
+               	#found ip
 		if result > 0:
-			print "\nO ip para comunicaçao via SSH é : \n" ,ip
+			print "\nO ip para comunicaçao via SSH é : \n" 
+			print "\n%s" %ip
 			tty.close()
 			return 1
+		#ip was not found
 		if not result: 
 			print "\nNao foi detectada rede cadastrada, deseja cadastrar alguma rede?\n" 
 		        test = int(raw_input("\n(1)Sim  (2)Não\n")) #check if it is correct
@@ -148,7 +154,13 @@ def screen_term(result):
 			if test is 2: 
 				tty.close()
 				return 0
-			
+			#screen clear and warning that is necessary to write the name insidde of quotes
+			print(chr(27) + "[2J")
+			#set the cursor position
+			print(chr(27) + "[H" )
+
+			print "Redes encontradas\n"
+			print "O nome precisa ser digitado com as aspas\n"	
 			#if there is any error restart
 			output = 1
 			while output > 0: 
@@ -160,7 +172,7 @@ def screen_term(result):
     			output = process.communicate()[0]	
 			
 			print output		
-				
+		#the device is not plugged		
 		if result < 0:
 			print "\nDispositivo não conectado , iniciando no modo console\n"
 			tty.close()
@@ -169,7 +181,7 @@ def screen_term(result):
 
 ip = get_ip_address('wlan0')
 test = screen_term(ip)
-
+#go back to console
 console = open (console_term , "w+")
 
 if console > 0:
@@ -179,4 +191,4 @@ if console > 0:
 	if test:
 		 sys.exit(0) #successful termination
 	else:
-		sys.exit("error")
+		sys.exit(1)

@@ -96,7 +96,7 @@ while [ $? = 1 ]
  then
  echo '' > $HDMI_TERM
  echo '' > $HDMI_TERM
- echo "Pendrive 2 : Foram encontrados $COMMAND_TWO arquivos de áudio de extensoes" 
+ echo "Pendrive 2 : Foram encontrados $COMMAND_TWO arquivos de áudio de extensoes" >$HDMI_TERM 
  echo 'aac,flac,mp3,ogg,wav' > $HDMI_TERM
  
  
@@ -114,7 +114,7 @@ while [ $? = 1 ]
  echo "Pendrive 2 : Foram encontrados $COMMAND_FOUR arquivos de vídeo de extensoes " > $HDMI_TERM
  echo 'aac,flac,mp3,ogg,wav' > $HDMI_TERM
  
- sleep 3
+ sleep 10
 
  cd $PEN_SEC && ls -1 *.{mp4,mkv,avi,mpg} >> /tmp/videolist2  2> /dev/null
  fi

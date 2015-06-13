@@ -12,20 +12,24 @@ def file_open(file,size):
 	#fo because of file object
 	fo = open( file , "w")
 	if fo > 0:
-		print "\nOK\n"
+		print "\nOK"
 		
 
 		fo.write( "\nA quantidade de arquivos que serão listados :%s\n" %size)
 	else:
-		print "\nERRO\n"
+		print "\nERRO"
 
 	fo.close()
 
 	return 1
 
+#flush stdin
 termios.tcflush( sys.stdin, termios.TCIOFLUSH )
 
-print(chr(27) + "[2J")
+#screen clear
+print(chr(27) + "[2J" )
+#set the cursor position to the beginning
+print(chr(27) + "[H" )
 
 print """Ajuste o tamanho da fonte de acordo com as opções
 

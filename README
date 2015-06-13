@@ -14,39 +14,10 @@ My program will look for /mnt/pd and /mnt/pd2/ folders
 -clone the repo into /home/ubuntu/ folder
 
 -rc.local file located int the '/etc/' folder (it´s really necessary to add) :
-#!/bin/sh
 
-#time for ip address
-sleep 15
+#!/bin/bash
 
-output=`python /home/ubuntu/gitplayer/ip_print.py`
-
-if [ $output -eq 0 ]
-then
-#time to connect
-sleep 120
-
-if [ `ps aux |grep ssh |wc -l` -eq 3 ]
-then
-
-clear > /dev/tty1
-#once on a ssh terminal you need to type the command below
-#and wait until leave the msg to execute.Otherwise the program will crash
-echo 'Voce precisa digitar o comando ' > /dev/tty1
-echo 'bash /home/ubuntu/gitplayer/startup.bash ' > /dev/tty1
-echo 'e executa-lo com a tecla enter depois que este aviso sair da tela' > /dev$
-
-sleep 60
-exit 0
-
-else
-bash /home/ubuntu/gitplayer/startup.bash
-exit 0
-fi
-
-else
-bash /home/ubuntu/gitplayer/startup.bash
-fi
+/home/ubuntu/gitplayer/valid.bash
 exit 0
 
 
