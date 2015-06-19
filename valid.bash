@@ -17,14 +17,15 @@ sleep 120
 if [ `ps aux |grep ssh |wc -l` -eq 3 ]
 then
 
-clear > /dev/tty1
+python /home/ubuntu/gitplayer/test.py
 
+clear > /dev/tty1
 
 #once on a ssh terminal you need to type the command below
 #and wait until leave the msg to execute.Otherwise the program will crash
 echo 'Voce precisa digitar o comando: ' > /dev/tty1
 setterm -foreground red > /dev/tty1
-echo 'bash /home/ubuntu/gitplayer/startup.bash ' > /dev/tty1
+echo 'bash player ' > /dev/tty1
 setterm -foreground green > /dev/tty1
 echo 'e executa-lo com a tecla enter' > /dev/tty1 
 echo 'depois que este aviso sair da tela' > /dev/tty1
