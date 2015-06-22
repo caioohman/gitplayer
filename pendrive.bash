@@ -78,7 +78,7 @@ echo 'Digite os números desejados' > $HDMI_TERM
 
 clear
 
-# when the size of the words are small enough to two file on the same screen
+# when the size of the words are small enough for two file on the same screen
 
 if [ $two_files -eq 2 ] || [ $three_files -eq 3 ] || [ $four_files -eq 4 ]
 then
@@ -141,7 +141,7 @@ done
 false=1
 fi
 
-# when the size of the words are small enough to three file on the same screen
+# when the size of the words are small enough for three file on the same screen
 
 if [ $three_files -eq 3 ] || [ $four_files -eq 4 ]
 then
@@ -175,7 +175,7 @@ done
 false=1
 fi
 
-# when the size of the words are small enough to four file on the same screen
+# when the size of the words are small enough for four file on the same screen
 if [ $four_files -eq 4 ]
 then
 echo 'escolha alguma opção ou aperte o enter (4)'
